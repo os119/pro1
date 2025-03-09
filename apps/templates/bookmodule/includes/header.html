@@ -5,3 +5,17 @@
     <a class="{% if url_name == 'books.aboutus' %}active{% endif %}" href="{% url 'books.aboutus' %}">About</a>
 </div>
 {% endwith %}
+
+<form class="searchForm" method="post" action="{% url "search_books" %}">
+    {% csrf_token %} 
+    <label>Keywords:</label>
+    <input type="text" name="keyword" placeholder="enter a keyword"/>
+    <br/> 
+ 
+    <label>Search in:</label>
+    <input type="checkbox" name="option1"/><label>Title</label>
+    <input type="checkbox" name="option2"/><label>Author</label>
+    <br/>
+    
+    <button type="submit" ><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+</form>

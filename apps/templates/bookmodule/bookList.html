@@ -1,0 +1,30 @@
+{% extends "bookmodule/layouts/base.html" %}
+{% load static %}
+
+{% block title %}List{% endblock title %}
+
+{% block content %}
+<h1>List books</h1>
+
+{% if books %}
+<table border>
+    <tr>
+        <td>ID</td>
+        <td>TITLE</td>
+        <td>AUTHOR</td>
+    </tr>
+
+{% for i in books %}
+<tr>
+    <td>{{i.id}}</td>
+    <td>{{i.title}}</td>
+    <td>{{i.author}}</td>
+</tr>
+{% endfor %}
+{% else %}
+<p>No books available</p>
+{% endif %}
+
+</table>
+
+{% endblock content %}
