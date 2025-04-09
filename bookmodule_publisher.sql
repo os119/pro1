@@ -1,0 +1,10 @@
+insert into bookmodule_publisher (name, location) values ('Hatti Anstie', 'Poland');
+insert into bookmodule_publisher (name, location) values ('Becka Freak', 'Mongolia');
+insert into bookmodule_publisher (name, location) values ('Delano Doole', 'Indonesia');
+insert into bookmodule_publisher (name, location) values ('Shela Firebrace', 'Argentina');
+insert into bookmodule_publisher (name, location) values ('Marabel deKnevet', 'China');
+insert into bookmodule_publisher (name, location) values ('Jeralee Dizlie', 'Poland');
+insert into bookmodule_publisher (name, location) values ('Carita Grammer', 'United States');
+insert into bookmodule_publisher (name, location) values ('Lorraine Duester', 'Finland');
+insert into bookmodule_publisher (name, location) values ('Genna de Mendoza', 'Canada');
+insert into bookmodule_publisher (name, location) values ('Mommy Dawtrey', 'Indonesia');

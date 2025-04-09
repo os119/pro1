@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book
-
-
-
+from .models import Publisher
+from django.db.models import Count, Min, Max, Sum, Avg
+from django.db.models import Q
 
 
 def index2(request, val1 = 0):   #add the view function (index2)
@@ -102,3 +102,41 @@ def complex_query(request):
     else:
         return render(request, 'bookmodule/index.html')
 
+def ap(request):
+    a= Publisher(name="ahmed",location="riyadh")
+    a.save()
+    all_publishers = Publisher.objects.all()
+    return render(request, 'bookmodule/bookList.html', {'books': all_publishers})
+
+def test_create(request):
+    pub = Publisher.objects.filter(name="ahmed").first()
+    book = Book(title="Django For Beginners", author="William S.", edition=1, publisher=pub)
+    book.save()
+    b=Book.objects.all()
+    return render(request, 'bookmodule/bookList.html', {'books': b})
+
+def t1(request):
+    a=Book.objects.filter(Q(price__lte=80))
+    return render(request, 'bookmodule/bookList.html', {'books': a})
+
+def t2(request):
+    a=Book.objects.filter(Q(edition__gt=3)&(Q(title__icontains="co")|Q(author__icontains="co")))
+    return render(request, 'bookmodule/bookList.html', {'books': a})
+
+def t3(request):
+    a=Book.objects.filter(~Q(edition__gt=3)&(~Q(title__icontains="co")&~Q(author__icontains="co")))
+    return render(request, 'bookmodule/bookList.html', {'books': a})
+
+def t4(request):
+    a=Book.objects.all().order_by('title')
+    return render(request, 'bookmodule/bookList.html', {'books': a})
+
+def t5(request):
+    a1=Count('id')
+    a2=Sum('price')
+    a3=Avg('price')
+    a4=Max('price')
+    a5=Min('price')
+    q=Book.objects.aggregate(count=a1,sum=a2,avg=a3,max=a4,min=a5)
+    return render(request,'bookmodule/lab8.html',{'stats':q})
+    

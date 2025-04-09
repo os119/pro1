@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-path('<int:bookId>', views.viewbook)
+
 urlpatterns = [
     path('', views.index, name= "books.index"),
     path('list_books/', views.list_books, name= "books.list_books"),
@@ -11,6 +11,12 @@ urlpatterns = [
     path('add_books/', views.add_books, name='add_books'),
     path('simple/query', views.simple_query, name='simple_query'),
     path('complex/query', views.complex_query, name='complex_query'),
+    path('p', views.test_create, name='p'),
+    path('lab8/task1/', views.t1, name='t1'),
+    path('lab8/task2/', views.t2, name='t2'),
+    path('lab8/task3/', views.t3, name='t3'),
+    path('lab8/task4/', views.t4, name='t4'),
+    path('lab8/task5/', views.t5, name='t5'),
     
 ]
 
