@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book
 from .models import Publisher
+from .models import Author
 from django.db.models import Count, Min, Max, Sum, Avg
 from django.db.models import Q
 
@@ -140,3 +141,25 @@ def t5(request):
     q=Book.objects.aggregate(count=a1,sum=a2,avg=a3,max=a4,min=a5)
     return render(request,'bookmodule/lab8.html',{'stats':q})
     
+
+def add_b(request):
+    b = B.objects.create(title="art", authors="ali", price=2.3, editions=1)
+
+    z=B.objects.filter(title__icontains="and")
+    return render(request, 'bookmodule/a.html',{"b":z})
+    
+
+
+
+def lab9(request):
+    a=Publisher.objects.annotate(b = Count("book"))
+    # a=objs = Publisher.objects.annotate(b = Min("book__pubdate")).filter(b__isnull=False)
+    # a=Publisher.objects.annotate(b = Avg('book__price'))
+    # c= Count("book", filter=Q(book__rating__gte = 7))
+    # a= Publisher.objects.annotate(b = Count("book"),c = highly_rated)
+    # a=Publisher.objects.annotate(b=Count('book', filter = Q(book__price__gt=50)))
+    # a= Book.objects.annotate(b = Count('authors')).filter(b__gt = 1).order_by('b')
+    if len(a)>1:
+        return render(request,'bookmodule/lab9.html',{'a':a})
+    else:
+        return render(request, 'bookmodule/index.html')

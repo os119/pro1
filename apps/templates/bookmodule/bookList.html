@@ -6,25 +6,25 @@
 {% block content %}
 <h1>List books</h1>
 
-{% if books %}
+<!-- {% if books %}
 <table border>
     <tr>
         <td>ID</td>
         <td>TITLE</td>
         <td>AUTHOR</td>
-    </tr>
+    </tr> -->
 
-{% for i in books %}
+{% for i in a %}
 <tr>
-    <td>{{i.id}}</td>
-    <td>{{i.title}}</td>
+    <td>{{i.b}}</td>
+    <!-- <td>{{i.title}}</td>
     <td>{{i.author}}</td>
-    <td>{{i.publisher.location}}</td>
+    <td>{{i.publisher.location}}</td> -->
 </tr>
 {% endfor %}
 {% else %}
 <p>No books available</p>
-{% endif %}
+<!-- {% endif %} -->
 
 </table>
 

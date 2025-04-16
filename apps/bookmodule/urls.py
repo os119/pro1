@@ -17,6 +17,7 @@ urlpatterns = [
     path('lab8/task3/', views.t3, name='t3'),
     path('lab8/task4/', views.t4, name='t4'),
     path('lab8/task5/', views.t5, name='t5'),
+    path('lab9', views.lab9, name='lab9'),
     
 ]
 
