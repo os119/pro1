@@ -1,0 +1,36 @@
+{% extends "bookmodule/layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Update Book</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Price:</label>
+    <input type="text" name="price" value="{{ book.price }}"><br>
+
+    <label>Rating:</label>
+    <input type="text" name="rating" value="{{ book.rating }}"><br>
+
+    <label>Pubdate (YYYY-MM-DD):</label>
+    <input type="text" name="pubdate" value="{{ book.pubdate|date:"Y-m-d" }}"><br>
+
+    <label>Publisher:</label>
+    <select name="publisher_id">
+        {% for p in publishers %}
+            <option value="{{ p.id }}">{{ p.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Author:</label>
+    <select name="author_id">
+        {% for a in authors %}
+            <option value="{{ a.id }}">{{ a.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Update</button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "bookmodule/layouts/base.html" %}
+{% load static %}
+
+
+{% block title %} Delete Book {% endblock %}
+
+{% block content %}
+<h3>Deleting a Book</h3>
+
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure to delete the book with price: {{ book.price }}?</p>
+    <button type="submit">Delete Book</button>
+    <a href="{% url 'lab10books' %}">Cancel</a>
+</form>
+{% endblock content %}

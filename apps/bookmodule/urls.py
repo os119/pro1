@@ -18,6 +18,19 @@ urlpatterns = [
     path('lab8/task4/', views.t4, name='t4'),
     path('lab8/task5/', views.t5, name='t5'),
     path('lab9', views.lab9, name='lab9'),
+    path('lab10one/<int:bid>/', views.oneBook, name='lab10one'),
+    path('lab10books/', views.books, name='lab10books'),
+    path('update/<int:bid>/', views.updateBook, name='update'),
+    path('delete/<int:bid>/', views.deleteBook, name='deleteBook'),
+    path('add/', views.addBook, name='addBook'),
+    path('addf/', views.addBookf, name='addBookf'),
+    path('updatef/<int:bid>/', views.updateBookf, name='updateBookf'),
+
+    
+
+
+   
+   
     
 ]
 

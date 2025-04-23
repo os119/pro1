@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from .models import Book
 from .models import Publisher
 from .models import Author
 from django.db.models import Count, Min, Max, Sum, Avg
 from django.db.models import Q
+from .forms import BookForm
 
 
 def index2(request, val1 = 0):   #add the view function (index2)
@@ -163,3 +164,124 @@ def lab9(request):
         return render(request,'bookmodule/lab9.html',{'a':a})
     else:
         return render(request, 'bookmodule/index.html')
+    
+
+def books(request):
+    a=Book.objects.all()
+    return render(request, 'bookmodule/lab10list.html', {'books': a})
+
+
+def oneBook(request,bid):
+    a=Book.objects.get(id=bid)
+    return render(request, 'bookmodule/lab10one.html', {'book': a})
+
+def addBook(request):
+    if request.method == 'POST':
+        price = request.POST.get('price')
+        rating = request.POST.get('rating')
+        pubdate = request.POST.get('pubdate')
+        publisher_id = request.POST.get('publisher_id')
+        author_id = request.POST.get('author_id')
+
+        publisherObj = Publisher.objects.get(id=publisher_id)
+        authorObj = Author.objects.get(id=author_id)
+
+        obj = Book(
+            price=float(price),
+            rating=int(rating),
+            pubdate=pubdate,
+            publisher=publisherObj,
+            
+        )
+        obj.save()
+        obj.authors.set([authorObj])
+
+        return redirect('lab10one', bid=obj.id)
+
+    authors = Author.objects.all().order_by('name')
+    publishers = Publisher.objects.all().order_by('name')
+    return render(request, "bookmodule/lab10.html", { 'authors': authors, 'publishers': publishers })
+
+
+def updateBook(request, bid):
+    obj = Book.objects.get(id=bid)
+
+    if request.method == 'POST':
+        price = request.POST.get('price')
+        rating = request.POST.get('rating')
+        pubdate = request.POST.get('pubdate')
+        publisher_id = request.POST.get('publisher_id')
+        author_id = request.POST.get('author_id')
+
+        publisherObj = Publisher.objects.get(id=publisher_id)
+        authorObj = Author.objects.get(id=author_id)
+
+        obj.price = float(price)
+        obj.rating = int(rating)
+        obj.pubdate = pubdate
+        obj.publisher = publisherObj
+        obj.save()
+        obj.authors.set([authorObj])
+
+        return redirect('lab10one', bid=obj.id)
+
+    authors = Author.objects.all().order_by('name')
+    publishers = Publisher.objects.all().order_by('name')
+
+    return render(request, "bookmodule/lab10update.html", {
+        'book': obj,
+        'authors': authors,
+        'publishers': publishers
+    })
+
+
+def deleteBook(request, bid):
+    obj = Book.objects.get(id=bid)
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('lab10books') 
+
+    return render(request, "bookmodule/lab10delete.html", {'book': obj})
+
+
+
+
+def addBookf(request):
+    obj = None
+
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            obj = form.save()
+            return redirect('lab10one', bid=obj.id)
+
+    
+    form = BookForm(None)
+    authors = Author.objects.all().order_by('name')
+    publishers = Publisher.objects.all().order_by('name')
+    return render(request, "bookmodule/addf.html", {
+        'authors': authors,
+        'form': form,
+        'publishers': publishers
+    })
+
+def updateBookf(request, bid):
+    obj = None
+    book = Book.objects.get(id=bid)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            obj = form.save()
+            return redirect('lab10one', bid=obj.id)
+
+    form = BookForm(instance=book)
+    authors = Author.objects.all().order_by('name')
+    publishers = Publisher.objects.all().order_by('name')
+    return render(request, "bookmodule/updatef.html", {
+        'authors': authors,
+        'form': form,
+        'publishers': publishers
+    })
+

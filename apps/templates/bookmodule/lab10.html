@@ -1,0 +1,36 @@
+{% extends "bookmodule/layouts/base.html" %}
+{% load static %}
+
+{% block title %}lab 10{% endblock title %}
+ 
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    
+    <label>price:</label>
+    <input type="text" name="price"><br>
+
+    <label>rating:</label>
+    <input type="text" name="rating"><br>
+
+    <label>pubdate:</label>
+    <input type="text" name="pubdate"><br>
+
+    <label>Publisher:</label>
+    <select name="publisher_id">
+        {% for p in publishers %}
+            <option value="{{ p.id }}">{{ p.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Author:</label>
+    <select name="author_id">
+        {% for a in authors %}
+            <option value="{{ a.id }}">{{ a.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Add Book</button>
+</form>
+
+{% endblock content %}
