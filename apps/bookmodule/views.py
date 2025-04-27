@@ -2,7 +2,7 @@ from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from .models import Book
 from .models import Publisher
-from .models import Author
+from .models import Author,user
 from django.db.models import Count, Min, Max, Sum, Avg
 from django.db.models import Q
 from .forms import BookForm
@@ -251,9 +251,11 @@ def addBookf(request):
     obj = None
 
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = BookForm(request.POST, request.FILES)
         if form.is_valid():
-            obj = form.save()
+            obj = form.save(commit=False)
+            obj.save()
+            form.save_m2m()
             return redirect('lab10one', bid=obj.id)
 
     
@@ -271,9 +273,11 @@ def updateBookf(request, bid):
     book = Book.objects.get(id=bid)
 
     if request.method == 'POST':
-        form = BookForm(request.POST, instance=book)
+        form = BookForm(request.POST,request.FILES, instance=book )
         if form.is_valid():
-            obj = form.save()
+            obj = form.save(commit=False)
+            obj.save()
+            form.save_m2m()
             return redirect('lab10one', bid=obj.id)
 
     form = BookForm(instance=book)
@@ -285,3 +289,19 @@ def updateBookf(request, bid):
         'publishers': publishers
     })
 
+
+
+def qm(request):
+    return render(request,"bookmodule/qm.html")
+
+def add_user(request):
+    a=user.objects.create(user_id=12442,name="ayman")
+    a.save()
+    return render(request,"bookmodule/index.html")
+
+def a(request):
+    a=user.objects.get(name="ayman")
+    if not a:
+        return HttpResponse(1111,"a")
+
+    

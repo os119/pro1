@@ -4,7 +4,7 @@ from .models import Book, Publisher, Author
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['price', 'rating', 'author', 'publisher']
+        fields = ['price', 'rating', 'author', 'publisher',"cimage"]
 
     price = forms.DecimalField(
         required=True,
@@ -28,13 +28,17 @@ class BookForm(forms.ModelForm):
         })
     )
 
-    author = forms.ModelChoiceField(
-        empty_label=None,
+    author = forms.ModelMultipleChoiceField(
+        
         queryset=Author.objects.all(),
         required=True,
         label="Author",
-        widget=forms.Select(attrs={
+        widget=forms.CheckboxSelectMultiple(attrs={
             'class': "mycssclass",
             'id': 'jsID2'
         })
     )
+
+    cimage=forms.FileField(required=False)
+
+

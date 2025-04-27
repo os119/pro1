@@ -25,6 +25,8 @@ urlpatterns = [
     path('add/', views.addBook, name='addBook'),
     path('addf/', views.addBookf, name='addBookf'),
     path('updatef/<int:bid>/', views.updateBookf, name='updateBookf'),
+    path('qm/', views.qm, name='qm'),
+    path('add_user/', views.a, name='u'),
 
     
 
