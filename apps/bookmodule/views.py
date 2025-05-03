@@ -6,7 +6,7 @@ from .models import Author,user
 from django.db.models import Count, Min, Max, Sum, Avg
 from django.db.models import Q
 from .forms import BookForm
-
+#لازم تغطيهن
 
 def index2(request, val1 = 0):   #add the view function (index2)
     return HttpResponse("value1 = "+str(val1))

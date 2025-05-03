@@ -11,6 +11,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,6 +28,10 @@ SECRET_KEY = 'django-insecure-qk9am&lejzct7e(#%w67@1_1&hq&bdcu@rxydj3i%pg!eb-%cu
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_URL = '/users/login/'
+
+# LOGIN_URL = '/admin/login/' بدون صفحه دخول
+
 
 
 # Application definition
@@ -118,7 +123,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+#***********************************************************************************************************************************************************
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [( os.path.join(BASE_DIR, "apps/static"))]
 
