@@ -1,0 +1,129 @@
+{% extends "bookmodule/layouts/base.html" %}
+{% load static %}
+
+{% block title %}lab 10{% endblock title %}
+
+{% block content %}
+<h1>Java script</h1>
+
+
+<script>
+var n = 1;
+
+function changeColor() {
+    document.getElementById('myDiv').style.backgroundColor = 'lightblue';
+}
+
+function changeText() {
+    document.getElementById('myDiv').textContent = 'Text changed!';
+}
+
+function addItem() {
+    const ul = document.getElementById('myList');
+    const li = document.createElement('li');
+    li.textContent = 'New Item ' + (ul.children.length + 1);
+    ul.appendChild(li);
+}
+
+function toggleDiv() {
+    const div = document.getElementById('toggleDiv');
+    div.style.display = div.style.display === 'none' ? 'block' : 'none';
+}
+
+function setupHover() {
+    const div = document.getElementById('hoverDiv');
+    div.onmouseover = function () {
+        this.style.backgroundColor = 'lightcoral';
+        this.style.fontSize = '20px';
+    };
+    div.onmouseout = function () {
+        this.style.backgroundColor = 'lightgray';
+        this.style.fontSize = '16px';
+    };
+}
+
+function addNewHoppy() {
+    var hobby_input = document.getElementById("hobby_input");
+    var hoppy_value = hobby_input.value;
+    var input = document.createElement("input");
+    input.setAttribute('type', 'hidden');
+    input.setAttribute("name", "hobby" + n);
+    input.setAttribute("id", "hobby" + n);
+    input.setAttribute("value", hoppy_value);
+    var parent = document.getElementById("container");
+    parent.appendChild(input);
+
+    var table = document.getElementById("hobbies");
+    var tr = document.createElement("tr");
+    var td1 = document.createElement("td");
+    var td2 = document.createElement("td");
+
+    var inputtd2 = document.createElement("input");
+    inputtd2.name = "hobby" + n;
+    inputtd2.value = hoppy_value;
+    inputtd2.disabled = true;
+    td2.append(inputtd2);
+
+    var td3 = document.createElement("td");
+    var buttontd3 = document.createElement("button");
+    buttontd3.type = "button";
+    buttontd3.onclick = function () {
+        var row = this.parentNode.parentNode.rowIndex;
+        document.getElementById("hobbies").deleteRow(row);
+        document.getElementById("hobby" + n).remove();
+    };
+    buttontd3.innerHTML = "Remove";
+    td3.append(buttontd3);
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    table.appendChild(tr);
+
+    hobby_input.value = "";
+    hobby_input.placeholder = "Enter more";
+    n = n + 1;
+}
+
+window.onload = setupHover;
+</script>
+
+
+<h2>task1</h2>
+<button onclick="changeColor()">Change Color</button>
+<button onclick="changeText()">Change Text</button>
+<div id="myDiv" style="width:200px; height:100px; border:1px solid black">
+    Original Content
+</div>
+
+<h2>task2</h2>
+<button onclick="addItem()">Add Item</button>
+<ul id="myList">
+    <li>Initial Item 1</li>
+    <li>Initial Item 2</li>
+</ul>
+
+<h2>task3</h2>
+<button onclick="toggleDiv()">Toggle Div</button>
+<div id="toggleDiv" style="width:200px; height:100px; background-color: lightgreen">
+    Toggleable Content
+</div>
+
+<h2>task4</h2>
+<div id="hoverDiv">Hover over me!</div>
+
+<h2>task5 - Add Hobby</h2>
+<input type="text" id="hobby_input" placeholder="Enter a hobby">
+<button onclick="addNewHoppy()">Add Hobby</button>
+
+<table id="hobbies" border="1">
+    <tr>
+        <th>#</th>
+        <th>Hobby</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<div id="container"></div>
+
+{% endblock content %}

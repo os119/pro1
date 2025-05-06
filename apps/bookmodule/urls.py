@@ -27,6 +27,7 @@ urlpatterns = [
     path('updatef/<int:bid>/', views.updateBookf, name='updateBookf'),
     path('qm/', views.qm, name='qm'),
     path('add_user/', views.a, name='u'),
+    path('j/', views.j, name='j'),
 
     
 

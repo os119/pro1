@@ -305,3 +305,6 @@ def a(request):
         return HttpResponse(1111,"a")
 
     
+
+def j(request):
+    return render(request,"bookmodule/java.html")
